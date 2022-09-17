@@ -7,16 +7,16 @@ import { ADD_USER } from "../utils/mutations";
 
 import Auth from "../utils/auth";
 
-const SignupForm = () => {
-  // set initial form state
+let SignupForm = () => {
+  // set initial state
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
-  // set state for form validation
+  //  form validation
   const [validated] = useState(false);
-  // set state for alert
+  // alert
   const [showAlert, setShowAlert] = useState(false);
 
   // declared the addUser with the useMutation
@@ -30,7 +30,6 @@ const SignupForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -44,8 +43,8 @@ const SignupForm = () => {
       });
 
       Auth.login(data.addUser.token);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
       setShowAlert(true);
     }
 
@@ -67,9 +66,9 @@ const SignupForm = () => {
           show={showAlert}
           variant="danger"
         >
-          Something went wrong with your signup!
+             YOUR SIGN UP HAS BEEN INTERRUPTED
         </Alert>
-
+      
         <Form.Group>
           <Form.Label htmlFor="username">Username</Form.Label>
           <Form.Control
@@ -81,7 +80,7 @@ const SignupForm = () => {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Username is required!
+            Username required!
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -111,7 +110,7 @@ const SignupForm = () => {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Password is required!
+          A Password is needed.
           </Form.Control.Feedback>
         </Form.Group>
         <Button

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 
-// import appolo hook and add user mutation
+// import apollo hook
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_USER } from "../utils/mutations";
 
 import Auth from "../utils/auth";
 
-let SignupForm = () => {
-  // set initial state
+const SignupForm = () => {
+  // set state for the user
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
@@ -19,15 +19,15 @@ let SignupForm = () => {
   // alert
   const [showAlert, setShowAlert] = useState(false);
 
-  // declared the addUser with the useMutation
+  // declared the addUser
   const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-
-  const handleFormSubmit = async (event) => {
+//submit function
+  let handleFormSubmit = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -36,9 +36,9 @@ let SignupForm = () => {
       event.stopPropagation();
     }
 
-    // use addUser function
+    // use to  addUser function
     try {
-      const { data } = await addUser({
+      let { data } = await addUser({
         variables: { ...userFormData },
       });
 
@@ -54,12 +54,12 @@ let SignupForm = () => {
       password: "",
     });
   };
-
+//html form alerts
   return (
     <>
-      {/* This is needed for the validation functionality above */}
+     
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        {/* show alert if server response is bad */}
+       
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}
@@ -130,5 +130,5 @@ let SignupForm = () => {
     </>
   );
 };
-
+//export sign up form to be used for the app
 export default SignupForm;
